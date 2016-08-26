@@ -79,7 +79,7 @@ fun! s:HighlightOperators()
   " matching against "//" or "/*" which would break C++ comment highlighting
   " syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
   syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
-  syntax match OperatorCharsB ";\|:\|=\|\."
+  syntax match OperatorCharsB ";\|="
 
 
   if g:ophigh_highlight_link_group != ""
