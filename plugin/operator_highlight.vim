@@ -24,8 +24,12 @@ else
   let g:loaded_operator_highlight = 1
 endif
 
-if !exists( 'g:ophigh_color_gui' )
-  let g:ophigh_color_gui = "cyan"
+if !exists( 'g:ophigh_color_guiA' )
+  let g:ophigh_color_guiA = "cyan"
+endif
+
+if !exists( 'g:ophigh_color_guiB' )
+  let g:ophigh_color_guiB = "cyan"
 endif
 
 if !exists( 'g:ophigh_highlight_link_group' )
@@ -33,8 +37,12 @@ if !exists( 'g:ophigh_highlight_link_group' )
 endif
 
 
-if !exists( 'g:ophigh_color' )
-  let g:ophigh_color = "cyan"
+if !exists( 'g:ophigh_colorA' )
+  let g:ophigh_colorA = "cyan"
+endif
+
+if !exists( 'g:ophigh_colorB' )
+  let g:ophigh_colorB = "cyan"
 endif
 
 if !exists( 'g:ophigh_filetypes_to_ignore' )
@@ -70,14 +78,18 @@ fun! s:HighlightOperators()
   " basically, searching for "/" is more complex since we want to avoid
   " matching against "//" or "/*" which would break C++ comment highlighting
   " syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-  syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\|%\||\|!\|\~\|=\|\.\|/\(/\|*\)\@!"
+  syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
+  syntax match OperatorCharsB ";\|:\|=\|\."
 
 
   if g:ophigh_highlight_link_group != ""
-    exec "hi link OperatorChars " . g:ophigh_highlight_link_group
+    exec "hi link OperatorCharsA " . g:ophigh_highlight_link_group
+    exec "hi link OperatorCharsB " . g:ophigh_highlight_link_group
   else
-    exec "hi OperatorChars guifg=" . g:ophigh_color_gui . " gui=NONE"
-    exec "hi OperatorChars ctermfg=" . g:ophigh_color . " cterm=NONE"
+    exec "hi OperatorCharsA guifg=" . g:ophigh_color_guiA . " gui=NONE"
+    exec "hi OperatorCharsB guifg=" . g:ophigh_color_guiB . " gui=NONE"
+    exec "hi OperatorCharsA ctermfg=" . g:ophigh_colorA . " cterm=NONE"
+    exec "hi OperatorCharsB ctermfg=" . g:ophigh_colorB . " cterm=NONE"
   endif
 
 endfunction
