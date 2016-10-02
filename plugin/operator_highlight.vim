@@ -36,7 +36,6 @@ if !exists( 'g:ophigh_highlight_link_group' )
   let g:ophigh_highlight_link_group = ""
 endif
 
-
 if !exists( 'g:ophigh_colorA' )
   let g:ophigh_colorA = "cyan"
 endif
@@ -45,53 +44,42 @@ if !exists( 'g:ophigh_colorB' )
   let g:ophigh_colorB = "cyan"
 endif
 
-if !exists( 'g:ophigh_filetypes_to_ignore' )
-  let g:ophigh_filetypes_to_ignore = {}
+if !exists( 'g:ophigh_filetypes' )
+  let g:ophigh_filetypes = {}
 endif
 
-fun! s:IgnoreFiletypeIfNotSet( file_type )
-  if get( g:ophigh_filetypes_to_ignore, a:file_type, 1 )
-    let g:ophigh_filetypes_to_ignore[ a:file_type ] = 1
+fun! s:AddFiletypeIfNotSet( file_type )
+  if get( g:ophigh_filetypes, a:file_type, 1 )
+    let g:ophigh_filetypes[ a:file_type ] = 1
   endif
 endfunction
 
-call s:IgnoreFiletypeIfNotSet('help')
-call s:IgnoreFiletypeIfNotSet('markdown')
-call s:IgnoreFiletypeIfNotSet('qf') " This is for the quickfix window
-call s:IgnoreFiletypeIfNotSet('conque_term')
-call s:IgnoreFiletypeIfNotSet('diff')
-call s:IgnoreFiletypeIfNotSet('html')
-call s:IgnoreFiletypeIfNotSet('css')
-call s:IgnoreFiletypeIfNotSet('less')
-call s:IgnoreFiletypeIfNotSet('xml')
-call s:IgnoreFiletypeIfNotSet('sh')
-call s:IgnoreFiletypeIfNotSet('bash')
-call s:IgnoreFiletypeIfNotSet('notes')
-call s:IgnoreFiletypeIfNotSet('jinja')
+call s:AddFiletypeIfNotSet('c')
+call s:AddFiletypeIfNotSet('cpp')
+call s:AddFiletypeIfNotSet('cuda')
+call s:AddFiletypeIfNotSet('python')
+call s:AddFiletypeIfNotSet('fortran')
 
 fun! s:HighlightOperators()
-  if get( g:ophigh_filetypes_to_ignore, &filetype, 0 )
-    return
-  endif
-
-  " for the last element of the regex, see :h /\@!
-  " basically, searching for "/" is more complex since we want to avoid
-  " matching against "//" or "/*" which would break C++ comment highlighting
-  " syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-  syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
-  syntax match OperatorCharsB ";\|="
+    if get( g:ophigh_filetypes, &filetype, 0 )
+        " for the last element of the regex, see :h /\@!
+        " basically, searching for "/" is more complex since we want to avoid
+        " matching against "//" or "/*" which would break C++ comment highlighting
+        " syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
+        syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
+        syntax match OperatorCharsB ";\|="
 
 
-  if g:ophigh_highlight_link_group != ""
-    exec "hi link OperatorCharsA " . g:ophigh_highlight_link_group
-    exec "hi link OperatorCharsB " . g:ophigh_highlight_link_group
-  else
-    exec "hi OperatorCharsA guifg=" . g:ophigh_color_guiA . " gui=NONE"
-    exec "hi OperatorCharsB guifg=" . g:ophigh_color_guiB . " gui=NONE"
-    exec "hi OperatorCharsA ctermfg=" . g:ophigh_colorA . " cterm=NONE"
-    exec "hi OperatorCharsB ctermfg=" . g:ophigh_colorB . " cterm=NONE"
-  endif
-
+        if g:ophigh_highlight_link_group != ""
+            exec "hi link OperatorCharsA " . g:ophigh_highlight_link_group
+            exec "hi link OperatorCharsB " . g:ophigh_highlight_link_group
+        else
+            exec "hi OperatorCharsA guifg=" . g:ophigh_color_guiA . " gui=NONE"
+            exec "hi OperatorCharsB guifg=" . g:ophigh_color_guiB . " gui=NONE"
+            exec "hi OperatorCharsA ctermfg=" . g:ophigh_colorA . " cterm=NONE"
+            exec "hi OperatorCharsB ctermfg=" . g:ophigh_colorB . " cterm=NONE"
+        endif
+    endif
 endfunction
 
 au Syntax * call s:HighlightOperators()
