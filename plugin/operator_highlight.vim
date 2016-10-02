@@ -69,7 +69,6 @@ fun! s:HighlightOperators()
         syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
         syntax match OperatorCharsB ";\|="
 
-
         if g:ophigh_highlight_link_group != ""
             exec "hi link OperatorCharsA " . g:ophigh_highlight_link_group
             exec "hi link OperatorCharsB " . g:ophigh_highlight_link_group
