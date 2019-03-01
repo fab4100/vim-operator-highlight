@@ -66,7 +66,11 @@ fun! s:HighlightOperators()
         " basically, searching for "/" is more complex since we want to avoid
         " matching against "//" or "/*" which would break C++ comment highlighting
         " syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-        syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|\~\|/\(/\|*\)\@!"
+        if &filetype == "fortran"
+            syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|\~\|/\(/\|*\)\@!"
+        else
+            syntax match OperatorCharsA "?\|+\|-\|\*\|,\|<\|>\|&\|%\||\|!\|\~\|/\(/\|*\)\@!"
+        endif
         syntax match OperatorCharsB ";\|="
 
         if g:ophigh_highlight_link_group != ""
