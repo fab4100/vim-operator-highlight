@@ -25,11 +25,11 @@ else
 endif
 
 if !exists( 'g:ophigh_color_guiA' )
-  let g:ophigh_color_guiA = "cyan"
+  let g:ophigh_color_guiA = "1"
 endif
 
 if !exists( 'g:ophigh_color_guiB' )
-  let g:ophigh_color_guiB = "cyan"
+  let g:ophigh_color_guiB = "6"
 endif
 
 if !exists( 'g:ophigh_highlight_link_group' )
@@ -37,11 +37,11 @@ if !exists( 'g:ophigh_highlight_link_group' )
 endif
 
 if !exists( 'g:ophigh_colorA' )
-  let g:ophigh_colorA = "cyan"
+  let g:ophigh_colorA = "1"
 endif
 
 if !exists( 'g:ophigh_colorB' )
-  let g:ophigh_colorB = "cyan"
+  let g:ophigh_colorB = "6"
 endif
 
 if !exists( 'g:ophigh_filetypes' )
@@ -77,8 +77,6 @@ fun! s:HighlightOperators()
             exec "hi link OperatorCharsA " . g:ophigh_highlight_link_group
             exec "hi link OperatorCharsB " . g:ophigh_highlight_link_group
         else
-            exec "hi OperatorCharsA guifg=" . g:ophigh_color_guiA . " gui=NONE"
-            exec "hi OperatorCharsB guifg=" . g:ophigh_color_guiB . " gui=NONE"
             exec "hi OperatorCharsA ctermfg=" . g:ophigh_colorA . " cterm=NONE"
             exec "hi OperatorCharsB ctermfg=" . g:ophigh_colorB . " cterm=NONE"
         endif
